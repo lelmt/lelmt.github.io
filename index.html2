@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gửi thông tin về hệ thống</title>
+</head>
+<body>
+  <h2>Form liên hệ</h2>
+  <form id="contactForm">
+    <input type="text" name="name" placeholder="Họ và tên" required><br>
+    <input type="email" name="email" placeholder="Email" required><br>
+    <textarea name="message" placeholder="Nội dung" required></textarea><br>
+    <button type="submit">Gửi</button>
+  </form>
+
+  <script>
+    document.getElementById("contactForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const data = {
+        name: this.name.value,
+        email: this.email.value,
+        message: this.message.value
+      };
+
+      await fetch("https://n8n-yourproject.up.railway.app/webhook/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
+
+      alert("Gửi thành công!");
+    });
+  </script>
+</body>
+</html>
