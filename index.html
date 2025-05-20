@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Form liên hệ</title>
+</head>
+<body>
+  <h1>Liên hệ với chúng tôi</h1>
+  <form id="contactForm">
+    <input type="text" name="name" placeholder="Tên"><br>
+    <input type="email" name="email" placeholder="Email"><br>
+    <textarea name="message" placeholder="Nội dung"></textarea><br>
+    <button type="submit">Gửi</button>
+  </form>
+
+  <script>
+    const form = document.getElementById("contactForm");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const data = {
+        name: form.name.value,
+        email: form.email.value,
+        message: form.message.value
+      };
+
+      await fetch("http://localhost:5678/webhook/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
+
+      alert("Gửi thành công!");
+    });
+  </script>
+</body>
+</html>
